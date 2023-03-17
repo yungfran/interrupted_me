@@ -37,6 +37,7 @@ export async function InstallGuildCommand(appId, guildId, command) {
   const endpoint = `applications/${appId}/guilds/${guildId}/commands`;
   // install command
   try {
+    console.log("Command here is ")
     await DiscordRequest(endpoint, { method: 'POST', body: command });
   } catch (err) {
     console.error(err);
@@ -61,7 +62,7 @@ function createCommandChoices() {
 // Simple test command
 export const TEST_COMMAND = {
   name: 'test',
-  description: 'Basic guild command',
+  description: 'Testing for Basic guild command',
   type: 1,
 };
 
@@ -78,5 +79,11 @@ export const CHALLENGE_COMMAND = {
       choices: createCommandChoices(),
     },
   ],
+  type: 1,
+};
+
+export const INTERRUPT_COMMAND = {
+  name: 'Interrupt',
+  description: 'Basic interrupters',
   type: 1,
 };

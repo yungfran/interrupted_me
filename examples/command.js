@@ -7,28 +7,29 @@ import { VerifyDiscordRequest, DiscordRequest } from '../utils.js';
 const app = express();
 app.use(express.json({ verify: VerifyDiscordRequest(process.env.PUBLIC_KEY) }));
 
-app.post('/interactions', function (req, res) {
-  // Interaction type and data
-  const { type, data } = req.body;
-  /**
-   * Handle slash command requests
-   */
-  if (type === InteractionType.APPLICATION_COMMAND) {
-    // Slash command with name of "test"
-    if (data.name === 'test') {
-      // Send a message as response
-      return res.send({
-        type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
-        data: { content: 'A wild message appeared' },
-      });
-    }
-  }
-});
+// app.post('/interactions', function (req, res) {
+//   // Interaction type and data
+//   const { type, data } = req.body;
+//   /**
+//    * Handle slash command requests
+//    */
+//   if (type === InteractionType.APPLICATION_COMMAND) {
+//     // Slash command with name of "test"
+//     if (data.name === 'test') {
+//       // Send a message as response
+//       console.log("in command test")
+//       return res.send({
+//         type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+//         data: { content: 'A wild message appeared' },
+//       });
+//     }
+//   }
+// });
 
 async function createCommand() {
   const appId = process.env.APP_ID;
   const guildId = process.env.GUILD_ID;
-
+  console.log("creating command")
   /**
    * Globally-scoped slash commands (generally only recommended for production)
    * See https://discord.com/developers/docs/interactions/application-commands#create-global-application-command

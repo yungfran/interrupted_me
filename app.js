@@ -13,6 +13,7 @@ import {
   CHALLENGE_COMMAND,
   TEST_COMMAND,
   HasGuildCommands,
+  INTERRUPT_COMMAND,
 } from './commands.js';
 
 // Create an express app
@@ -48,6 +49,7 @@ app.post('/interactions', async function (req, res) {
 
     // "test" guild command
     if (name === 'test') {
+      console.log("in test")
       // Send a message into the channel where command was triggered from
       return res.send({
         type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
@@ -90,6 +92,18 @@ app.post('/interactions', async function (req, res) {
           ],
         },
       });
+    }
+
+    if (name === 'interrupt' && id) {
+
+      return res.send({
+        type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+        data: {
+          // Fetches a random emoji to send from a helper function
+          content: 'hello world ' + getRandomEmoji(),
+        },
+      });
+
     }
   }
 
@@ -182,5 +196,6 @@ app.listen(PORT, () => {
   HasGuildCommands(process.env.APP_ID, process.env.GUILD_ID, [
     TEST_COMMAND,
     CHALLENGE_COMMAND,
+    INTERRUPT_COMMAND
   ]);
 });
